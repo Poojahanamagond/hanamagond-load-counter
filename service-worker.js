@@ -1,45 +1,64 @@
-const CACHE_NAME = "hanamagond-tractor-v4";
+const CACHE_NAME = "hanamagond-tractor-v5";
 
 const FILES_TO_CACHE = [
+
     "./",
+
     "./index.html",
+
     "./style.css",
+
     "./app.js",
+
     "./manifest.json",
 
     "./login.html",
 
     "./owner.html",
+
     "./owner.js",
 
     "./tractor.html",
 
     "./jcb.html",
+
     "./jcb.js",
+
     "./jcb.css",
 
     "./icons/icon-192.png",
+
     "./icons/icon-512.png"
+
 ];
 
+
 self.addEventListener(
+
     "install",
+
     function (event) {
 
         event.waitUntil(
 
             caches.open(
+
                 CACHE_NAME
+
             )
 
             .then(
+
                 function (cache) {
 
                     return cache.addAll(
+
                         FILES_TO_CACHE
+
                     );
 
                 }
+
             )
 
         );
@@ -47,11 +66,14 @@ self.addEventListener(
         self.skipWaiting();
 
     }
+
 );
 
 
 self.addEventListener(
+
     "activate",
+
     function (event) {
 
         event.waitUntil(
@@ -59,6 +81,7 @@ self.addEventListener(
             caches.keys()
 
             .then(
+
                 function (cacheNames) {
 
                     return Promise.all(
@@ -66,29 +89,39 @@ self.addEventListener(
                         cacheNames
 
                             .filter(
+
                                 function (name) {
 
                                     return (
+
                                         name !==
+
                                         CACHE_NAME
+
                                     );
 
                                 }
+
                             )
 
                             .map(
+
                                 function (name) {
 
                                     return caches.delete(
+
                                         name
+
                                     );
 
                                 }
+
                             )
 
                     );
 
                 }
+
             )
 
         );
@@ -96,39 +129,107 @@ self.addEventListener(
         self.clients.claim();
 
     }
+
 );
 
 
 self.addEventListener(
+
     "fetch",
+
     function (event) {
+
+        if (
+
+            event.request.method !== "GET"
+
+        ) {
+
+            return;
+
+        }
+
 
         event.respondWith(
 
-            caches.match(
-                event.request
+            fetch(
+
+                event.request,
+
+                {
+
+                    cache: "no-store"
+
+                }
+
             )
 
             .then(
-                function (cachedResponse) {
+
+                function (networkResponse) {
 
                     if (
-                        cachedResponse
+
+                        networkResponse &&
+
+                        networkResponse.status === 200 &&
+
+                        networkResponse.type === "basic"
+
                     ) {
 
-                        return cachedResponse;
+                        const responseClone =
+
+                            networkResponse.clone();
+
+
+                        caches.open(
+
+                            CACHE_NAME
+
+                        )
+
+                        .then(
+
+                            function (cache) {
+
+                                cache.put(
+
+                                    event.request,
+
+                                    responseClone
+
+                                );
+
+                            }
+
+                        );
 
                     }
 
 
-                    return fetch(
+                    return networkResponse;
+
+                }
+
+            )
+
+            .catch(
+
+                function () {
+
+                    return caches.match(
+
                         event.request
+
                     );
 
                 }
+
             )
 
         );
 
     }
+
 );
