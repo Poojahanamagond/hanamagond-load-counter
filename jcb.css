@@ -1,0 +1,914 @@
+/* =========================================================
+   HANAMAGOND JCB LOAD COUNTER
+   COMPLETE CLEAN UI CSS
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f1f5f9;
+    color: #1f2933;
+}
+
+/* =========================================================
+   MAIN APP
+   ========================================================= */
+
+.jcb-app {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.jcb-header {
+    background: #1769aa;
+    color: white;
+    padding: 22px 18px;
+    border-radius: 16px;
+    text-align: center;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+
+.jcb-title {
+    font-size: 27px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+}
+
+.jcb-date {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.95;
+}
+
+/* =========================================================
+   GENERAL CARD
+   ========================================================= */
+
+.jcb-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.jcb-section-title {
+    font-size: 19px;
+    font-weight: 900;
+    margin-bottom: 16px;
+    color: #17202a;
+}
+
+/* =========================================================
+   DRIVER
+   ========================================================= */
+
+.driver-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.driver-row label {
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.driver-row input {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #d5dde5;
+    border-radius: 11px;
+    font-size: 17px;
+    outline: none;
+    background: white;
+}
+
+.driver-row input:focus {
+    border-color: #1769aa;
+}
+
+/* =========================================================
+   LOAD TYPE SELECTION
+   ========================================================= */
+
+.type-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.type-option {
+    border: 2px solid #d8e0e8;
+    background: white;
+    border-radius: 16px;
+    padding: 20px 12px;
+    cursor: pointer;
+    min-height: 145px;
+    transition: 0.2s ease;
+}
+
+.type-option:hover {
+    transform: translateY(-2px);
+}
+
+.type-option:active {
+    transform: scale(0.98);
+}
+
+.type-option.selected {
+    border-color: #1769aa;
+    background: #eef7ff;
+    box-shadow: 0 0 0 2px rgba(23, 105, 170, 0.08);
+}
+
+.type-icon {
+    font-size: 43px;
+    margin-bottom: 9px;
+}
+
+.type-option strong {
+    display: block;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.type-option span {
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #66717d;
+}
+
+/* =========================================================
+   SOIL / MATERIAL OPTIONS
+   ========================================================= */
+
+.option-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.count-option {
+    position: relative;
+    border: 2px solid #d8e0e8;
+    background: white;
+    border-radius: 16px;
+    padding: 18px 12px;
+    cursor: pointer;
+    min-height: 205px;
+    transition: 0.2s ease;
+}
+
+.count-option:hover:not(:disabled) {
+    transform: translateY(-2px);
+    border-color: #1769aa;
+}
+
+.count-option:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.count-option.selected {
+    border-color: #1769aa;
+    background: #eef7ff;
+}
+
+.count-option:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.option-icon {
+    font-size: 42px;
+    margin-bottom: 8px;
+}
+
+.count-option strong {
+    display: block;
+    font-size: 17px;
+    line-height: 1.45;
+    min-height: 48px;
+}
+
+.load-count {
+    display: block;
+    margin-top: 12px;
+    font-size: 22px;
+    font-weight: 900;
+    color: #1769aa;
+}
+
+.pause-text {
+    display: block;
+    margin-top: 7px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #1769aa;
+}
+
+/* =========================================================
+   CURRENT TOTAL
+   ========================================================= */
+
+.total-card {
+    background: white;
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.total-label {
+    font-size: 14px;
+    font-weight: 800;
+    color: #66717d;
+}
+
+.current-total {
+    font-size: 48px;
+    font-weight: 900;
+    margin: 5px 0;
+    color: #1769aa;
+}
+
+.current-selection {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.pause-message {
+    margin-top: 14px;
+    padding: 13px;
+    border-radius: 11px;
+    background: #fff3cd;
+    color: #856404;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.pause-message strong {
+    font-size: 20px;
+}
+
+/* =========================================================
+   SESSION SUMMARY
+   ========================================================= */
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.summary-item {
+    background: #f4f7fa;
+    border-radius: 13px;
+    padding: 17px 8px;
+    text-align: center;
+    border: 1px solid #edf0f3;
+}
+
+.summary-item span {
+    display: block;
+    font-size: 12px;
+    font-weight: 800;
+    color: #59636d;
+}
+
+.summary-item strong {
+    display: block;
+    margin-top: 8px;
+    font-size: 28px;
+    font-weight: 900;
+    color: #111827;
+}
+
+/* =========================================================
+   DETAILED LOAD REPORT
+   ========================================================= */
+
+/*
+   IMPORTANT:
+   Do NOT use #liveReportContent::before here.
+   The JavaScript already creates the report content.
+*/
+
+#liveReportContent,
+#previousReport {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #18212b;
+}
+
+/* =========================================================
+   REPORT TOP SUMMARY
+   ========================================================= */
+
+#liveReportContent .report-header-box,
+#previousReport .report-header-box {
+    background: #f7f9fb;
+    border: 1px solid #dfe5ea;
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px 25px;
+
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+#liveReportContent .report-header-box strong,
+#previousReport .report-header-box strong {
+    font-weight: 800;
+    color: #111827;
+}
+
+/* =========================================================
+   SOIL / MATERIAL MAIN SECTION
+   ========================================================= */
+
+#liveReportContent .report-category,
+#previousReport .report-category {
+    background: #ffffff;
+    border: 1px solid #dfe5ea;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   SECTION TITLE
+   ========================================================= */
+
+#liveReportContent .report-category-title,
+#previousReport .report-category-title {
+    font-size: 19px;
+    font-weight: 800;
+    color: #17202a;
+
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+
+    border-bottom: 2px solid #edf0f2;
+}
+
+/* =========================================================
+   TRACTOR / MATERIAL CARD
+   ========================================================= */
+
+#liveReportContent .report-item,
+#previousReport .report-item {
+    background: #f7f9fb;
+    border: 1px solid #e1e6eb;
+    border-radius: 10px;
+
+    padding: 14px;
+    margin-bottom: 12px;
+
+    box-sizing: border-box;
+    overflow-x: auto;
+}
+
+#liveReportContent .report-item:last-child,
+#previousReport .report-item:last-child {
+    margin-bottom: 0;
+}
+
+/* =========================================================
+   TRACTOR / MATERIAL NAME
+   ========================================================= */
+
+#liveReportContent .report-item-title,
+#previousReport .report-item-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #17202a;
+    margin-bottom: 7px;
+}
+
+/* =========================================================
+   LOAD COUNT
+   ========================================================= */
+
+#liveReportContent .report-item-count,
+#previousReport .report-item-count {
+    display: inline-block;
+
+    background: #e8f1f8;
+    color: #155e8a;
+
+    padding: 5px 10px;
+    border-radius: 20px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    margin-bottom: 12px;
+}
+
+/* =========================================================
+   LOAD TABLE
+   ========================================================= */
+
+#liveReportContent .load-table,
+#previousReport .load-table {
+    width: 100%;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    background: #ffffff;
+
+    border: 1px solid #d9e0e6;
+    border-radius: 9px;
+
+    overflow: hidden;
+
+    font-size: 14px;
+}
+
+/* =========================================================
+   TABLE HEADER
+   ========================================================= */
+
+#liveReportContent .load-table thead,
+#previousReport .load-table thead {
+    background: #eef2f5;
+}
+
+#liveReportContent .load-table th,
+#previousReport .load-table th {
+    padding: 11px 12px;
+
+    text-align: left;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    color: #374151;
+
+    border-bottom: 1px solid #d9e0e6;
+
+    white-space: nowrap;
+}
+
+/* =========================================================
+   TABLE DATA
+   ========================================================= */
+
+#liveReportContent .load-table td,
+#previousReport .load-table td {
+    padding: 11px 12px;
+
+    color: #1f2937;
+
+    border-bottom: 1px solid #edf0f2;
+
+    white-space: nowrap;
+}
+
+/* =========================================================
+   REMOVE LAST ROW BORDER
+   ========================================================= */
+
+#liveReportContent .load-table tbody tr:last-child td,
+#previousReport .load-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* =========================================================
+   LOAD NUMBER
+   ========================================================= */
+
+#liveReportContent .load-table td:first-child,
+#previousReport .load-table td:first-child {
+    font-weight: 700;
+}
+
+/* =========================================================
+   TIME
+   ========================================================= */
+
+#liveReportContent .load-table td:nth-child(2),
+#previousReport .load-table td:nth-child(2) {
+    font-weight: 700;
+}
+
+/* =========================================================
+   GAP
+   ========================================================= */
+
+#liveReportContent .load-table td:nth-child(3),
+#previousReport .load-table td:nth-child(3) {
+    font-weight: 700;
+    color: #475569;
+}
+
+/* =========================================================
+   FIRST LOAD GAP
+   ========================================================= */
+
+#liveReportContent .load-table tbody tr:first-child td:nth-child(3),
+#previousReport .load-table tbody tr:first-child td:nth-child(3) {
+    color: #64748b;
+}
+
+/* =========================================================
+   NO LOAD
+   ========================================================= */
+
+#liveReportContent .no-loads,
+#previousReport .no-loads {
+    background: #f8fafc;
+
+    border: 1px dashed #cbd5e1;
+    border-radius: 9px;
+
+    padding: 15px;
+
+    text-align: center;
+
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+/* =========================================================
+   SESSION START / END
+   ========================================================= */
+
+#liveReportContent .report-header-box[style],
+#previousReport .report-header-box[style] {
+    margin-top: 16px !important;
+    margin-bottom: 0 !important;
+}
+
+/* =========================================================
+   DETAILED REPORT OUTER CARD
+   ========================================================= */
+
+#detailedReport,
+.detailed-report {
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    margin-bottom: 15px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================================================
+   PREVIOUS REPORT
+   ========================================================= */
+
+.previous-section {
+    margin-top: 15px;
+}
+
+.date-picker-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.date-picker-card label {
+    font-weight: 800;
+    font-size: 15px;
+}
+
+.date-picker-card input {
+    padding: 14px;
+
+    border: 2px solid #d5dde5;
+    border-radius: 11px;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+.date-picker-card input:focus {
+    border-color: #1769aa;
+}
+
+.previous-report {
+    background: white;
+
+    border: 1px solid #e0e6eb;
+    border-radius: 14px;
+
+    padding: 16px;
+
+    line-height: 1.6;
+
+    margin-bottom: 12px;
+}
+
+/* =========================================================
+   ACTION BUTTONS
+   ========================================================= */
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.action-button {
+    width: 100%;
+
+    border: none;
+    border-radius: 13px;
+
+    padding: 17px;
+
+    font-size: 17px;
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition: 0.15s ease;
+}
+
+.share-button {
+    background: #1769aa;
+    color: white;
+}
+
+.new-button {
+    background: #e7edf2;
+    color: #222;
+}
+
+.action-button:hover {
+    opacity: 0.94;
+}
+
+.action-button:active {
+    transform: scale(0.98);
+}
+
+/* =========================================================
+   HIDDEN
+   ========================================================= */
+
+.hidden {
+    display: none !important;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+    text-align: center;
+
+    padding: 22px 10px;
+
+    color: #777;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .jcb-app {
+        padding: 10px;
+    }
+
+    .jcb-header {
+        padding: 19px 12px;
+    }
+
+    .jcb-title {
+        font-size: 22px;
+    }
+
+    .jcb-date {
+        font-size: 13px;
+    }
+
+    .jcb-card {
+        padding: 15px;
+        border-radius: 14px;
+    }
+
+    .jcb-section-title {
+        font-size: 17px;
+    }
+
+    /* LOAD TYPE */
+
+    .type-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 9px;
+    }
+
+    .type-option {
+        min-height: 125px;
+        padding: 15px 7px;
+    }
+
+    .type-icon {
+        font-size: 34px;
+    }
+
+    .type-option strong {
+        font-size: 15px;
+    }
+
+    .type-option span {
+        font-size: 11px;
+    }
+
+    /* LOAD OPTIONS */
+
+    .option-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 9px;
+    }
+
+    .count-option {
+        min-height: 185px;
+        padding: 14px 8px;
+    }
+
+    .option-icon {
+        font-size: 34px;
+    }
+
+    .count-option strong {
+        font-size: 14px;
+        min-height: 43px;
+    }
+
+    .load-count {
+        font-size: 19px;
+        margin-top: 10px;
+    }
+
+    .pause-text {
+        font-size: 11px;
+    }
+
+    /* TOTAL */
+
+    .current-total {
+        font-size: 42px;
+    }
+
+    .current-selection {
+        font-size: 16px;
+    }
+
+    /* SUMMARY */
+
+    .summary-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 7px;
+    }
+
+    .summary-item {
+        padding: 13px 3px;
+    }
+
+    .summary-item span {
+        font-size: 9px;
+    }
+
+    .summary-item strong {
+        font-size: 23px;
+    }
+
+    /* REPORT */
+
+    #liveReportContent .report-header-box,
+    #previousReport .report-header-box {
+        grid-template-columns: 1fr;
+
+        gap: 5px;
+
+        padding: 14px;
+
+        font-size: 14px;
+    }
+
+    #liveReportContent .report-category,
+    #previousReport .report-category {
+        padding: 12px;
+    }
+
+    #liveReportContent .report-category-title,
+    #previousReport .report-category-title {
+        font-size: 18px;
+    }
+
+    #liveReportContent .report-item,
+    #previousReport .report-item {
+        padding: 11px;
+    }
+
+    #liveReportContent .report-item-title,
+    #previousReport .report-item-title {
+        font-size: 15px;
+    }
+
+    #liveReportContent .load-table,
+    #previousReport .load-table {
+        font-size: 13px;
+    }
+
+    #liveReportContent .load-table th,
+    #liveReportContent .load-table td,
+    #previousReport .load-table th,
+    #previousReport .load-table td {
+        padding: 9px 8px;
+    }
+
+    /* ACTION BUTTONS */
+
+    .action-button {
+        font-size: 16px;
+        padding: 16px;
+    }
+}
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .jcb-app {
+        padding: 7px;
+    }
+
+    .jcb-card {
+        padding: 12px;
+    }
+
+    .jcb-title {
+        font-size: 20px;
+    }
+
+    .option-grid {
+        gap: 7px;
+    }
+
+    .count-option {
+        min-height: 175px;
+    }
+
+    .count-option strong {
+        font-size: 13px;
+    }
+
+    .load-count {
+        font-size: 18px;
+    }
+
+    .summary-item span {
+        font-size: 8px;
+    }
+
+    .summary-item strong {
+        font-size: 21px;
+    }
+}

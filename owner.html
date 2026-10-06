@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1769aa">
+    <meta name="description" content="Hanamagond Owner Load Counter">
+    <title>Hanamagond Owner Load Counter</title>
+    
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            color: #222;
+        }
+
+        .owner-app {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px;
+        }
+
+        .owner-header {
+            text-align: center;
+            padding: 20px 10px;
+        }
+
+        .owner-title {
+            font-size: 27px;
+            font-weight: 800;
+            color: #1769aa;
+        }
+
+        .owner-date {
+            margin-top: 8px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .motivation {
+            background: linear-gradient(135deg, #fff5e8, #fffdf8);
+            border-radius: 18px;
+            padding: 16px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 700;
+            line-height: 1.5;
+            box-shadow: 0 4px 14px rgba(0,0,0,.08);
+        }
+
+        .motivation small {
+            display: block;
+            margin-top: 4px;
+            color: #777;
+            font-weight: 500;
+        }
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 14px rgba(0,0,0,.08);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 2px solid #dce2e8;
+            border-radius: 11px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #1769aa;
+        }
+
+        .type-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .type-button,
+        .count-option {
+            border: none;
+            background: #f7f9fb;
+            border-radius: 15px;
+            padding: 16px 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: .15s;
+        }
+
+        .type-button:active,
+        .count-option:active {
+            transform: scale(.96);
+        }
+
+        .type-button.selected {
+            background: #1769aa;
+            color: white;
+        }
+
+        .type-icon,
+        .option-icon {
+            font-size: 35px;
+            margin-bottom: 7px;
+        }
+
+        .type-button strong,
+        .count-option strong {
+            display: block;
+            font-size: 15px;
+        }
+
+        .type-button span {
+            display: block;
+            margin-top: 4px;
+            font-size: 12px;
+        }
+
+        .option-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .count-option {
+            min-height: 135px;
+        }
+
+        .load-count {
+            display: block;
+            margin-top: 7px;
+            font-size: 14px;
+            font-weight: 800;
+            color: #1769aa;
+        }
+
+        .pause-text {
+            display: block;
+            margin-top: 7px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #188038;
+        }
+
+        .count-option:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .total-card {
+            background: #1769aa;
+            color: white;
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .total-label {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .current-total {
+            font-size: 48px;
+            font-weight: 900;
+            margin: 5px 0;
+        }
+
+        .current-selection {
+            font-size: 14px;
+        }
+
+        .pause-message {
+            margin-top: 12px;
+            background: rgba(255,255,255,.18);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+        }
+
+        .summary-item {
+            background: #f5f7fa;
+            border-radius: 12px;
+            padding: 13px 5px;
+            text-align: center;
+        }
+
+        .summary-item span {
+            display: block;
+            font-size: 10px;
+            color: #666;
+            font-weight: 700;
+        }
+
+        .summary-item strong {
+            display: block;
+            margin-top: 5px;
+            font-size: 24px;
+        }
+
+        .session-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .session-item {
+            background: #f6f8fa;
+            padding: 12px;
+            border-radius: 10px;
+        }
+
+        .session-item span {
+            display: block;
+            color: #777;
+            font-size: 12px;
+        }
+
+        .session-item strong {
+            display: block;
+            margin-top: 4px;
+            font-size: 14px;
+        }
+
+        .report-header-box,
+        .report-item {
+            background: #f6f8fa;
+            border-radius: 12px;
+            padding: 13px;
+            margin-bottom: 10px;
+        }
+
+        .report-header-box > div {
+            margin-bottom: 7px;
+        }
+
+        .report-category {
+            margin-top: 15px;
+        }
+
+        .report-category-title {
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .report-item-title {
+            font-weight: 800;
+        }
+
+        .report-item-count {
+            color: #1769aa;
+            font-weight: 800;
+            margin: 5px 0 10px;
+        }
+
+        .load-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .load-table th,
+        .load-table td {
+            border: 1px solid #ddd;
+            padding: 7px;
+            text-align: left;
+        }
+
+        .load-table th {
+            background: #eef3f7;
+        }
+
+        .no-loads {
+            color: #777;
+            padding: 10px 0;
+        }
+
+        .actions {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .action-button {
+            border: none;
+            border-radius: 13px;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .share-button {
+            background: #1769aa;
+            color: white;
+        }
+
+        .new-button {
+            background: #e9edf2;
+            color: #333;
+        }
+
+        .settings-button {
+            background: #fff5e8;
+            color: #8a4b00;
+        }
+
+        .settings-box {
+            background: #fffaf2;
+            border-radius: 13px;
+            padding: 15px;
+            margin-top: 12px;
+        }
+
+        .setting-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .setting-row label {
+            flex: 1;
+            margin: 0;
+        }
+
+        .setting-row input {
+            width: 90px;
+            text-align: center;
+        }
+
+        .save-settings {
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            padding: 12px;
+            background: #1769aa;
+            color: white;
+            font-weight: 800;
+        }
+
+        .date-picker-card {
+            margin-bottom: 12px;
+        }
+
+        .previous-report {
+            margin-top: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px 0 25px;
+            color: #888;
+            font-size: 13px;
+        }
+
+        @media (max-width: 380px) {
+            .option-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .owner-title {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<main class="owner-app">
+
+    <header class="owner-header">
+        <div class="owner-title">👨‍🌾 HANAMAGOND OWNER</div>
+        <div id="currentDate" class="owner-date">—</div>
+    </header>
+
+    <div class="motivation">
+        🎉 Hii! Great to start the new work! 😄
+        <small>Work smart, count smart & enjoy the day! 🚜💪</small>
+    </div>
+
+    <!-- DRIVER -->
+    <section class="card">
+        <div class="section-title">👷 DRIVER</div>
+
+        <label for="driverName">👨‍🌾 Driver Name</label>
+        <input
+            type="text"
+            id="driverName"
+            placeholder="Enter driver name"
+            autocomplete="off"
+        >
+    </section>
+
+    <!-- TYPE -->
+    <section class="card">
+        <div class="section-title">SELECT LOAD TYPE</div>
+
+        <div class="type-grid">
+
+            <button id="soilButton" class="type-button" type="button">
+                <div class="type-icon">🚜🪨</div>
+                <strong>ಮಣ್ಣಿನ ಡಬ್ಬಿ</strong>
+                <span>SOIL</span>
+            </button>
+
+            <button id="materialButton" class="type-button" type="button">
+                <div class="type-icon">🚜🏗️</div>
+                <strong>ಮೆಟೀರಿಯಲ್</strong>
+                <span>MATERIAL</span>
+            </button>
+
+        </div>
+    </section>
+
+    <!-- SOIL -->
+    <section id="soilSection" class="card hidden">
+
+        <div class="section-title">
+            🪨 SOIL — SELECT TRACTOR
+        </div>
+
+        <div class="option-grid">
+
+            <button class="count-option"
+                    data-type="soil"
+                    data-name="ಮಹೀಂದ್ರಾ ಟರ್ಬೊ"
+                    type="button">
+                <div class="option-icon">🚜</div>
+                <strong>ಮಹೀಂದ್ರಾ ಟರ್ಬೊ</strong>
+                <span class="load-count">0 Loads</span>
+                <span class="pause-text">READY</span>
+            </button>
+
+            <button class="count-option"
+                    data-type="soil"
+                    data-name="ಸಣ್ಣ ಎಲ್ ಎನ್ ಟಿ"
+                    type="button">
+                <div class="option-icon">🚜</div>
+                <strong>ಸಣ್ಣ ಎಲ್ ಎನ್ ಟಿ</strong>
+                <span class="load-count">0 Loads</span>
+                <span class="pause-text">READY</span>
+            </button>
+
+            <button class="count-option"
+                    data-type="soil"
+                    data-name="ದೊಡ್ಡ ಎಲ್ ಎನ್ ಟಿ"
+                    type="button">
+                <div class="option-icon">🚜</div>
+                <strong>ದೊಡ್ಡ ಎಲ್ ಎನ್ ಟಿ</strong>
+                <span class="load-count">0 Loads</span>
+                <span class="pause-text">READY</span>
+            </button>
+
+            <button class="count-option"
+                    data-type="soil"
+                    data-name="ಬೇರೆದ"
+                    type="button">
+                <div class="option-icon">🚜</div>
+                <strong>ಬೇರೆದ</strong>
+                <span class="load-count">0 Loads</span>
+                <span class="pause-text">READY</span>
+            </button>
+
+            
+        </div>
+    </section>
+
+    <!-- MATERIAL -->
+    <section id="materialSection" class="card hidden">
+
+        <div class="section-title">
+            🏗️ MATERIAL — SELECT MATERIAL
+        </div>
+
+        <div class="option-grid">
+
+            
+
+            <button class="count-option"
+                    data-type="material"
+                    data-name="ಬಳ್ಳಾರಿ ಬೂದಿ"
+                    type="button">
+                <div class="option-icon">🪨</div>
+                <strong>ಬಳ್ಳಾರಿ ಬೂದಿ</strong>
+                <span class="load-count">0 Loads</span>
+                <span class="pause-text">READY</span>
+            </button>
+
+            <button class="count-option"
+                    data-type="material"
+                    data-name="ಫ್ಯಾಕ್ಟರಿ ಬೂದಿ"
+                    type="button">
+                <div class="option-icon">🏭</div>
+                <strong>ಫ್ಯಾಕ್ಟರಿ ಬೂದಿ</strong>
+                <span class="load-count">0 Loads</span>
+                <span class="pause-text">READY</span>
+            </button>
+
+            <button class="count-option"
+                    data-type="material"
+                    data-name="ಬಗ್ಯಾಸ್ (ಹಿಪ್ಪಿ)"
+                    type="button">
+                <div class="option-icon">🏗️</div>
+                <strong>ಬಗ್ಯಾಸ್ (ಹಿಪ್ಪಿ)</strong>
+                <span class="load-count">0 Loads</span>
+                <span class="pause-text">READY</span>
+            </button>
+
+            <button class="count-option"
+                    data-type="material"
+                    data-name="NTPC ಬೂದಿ"
+                    type="button">
+                <div class="option-icon">🏭</div>
+                <strong>NTPC ಬೂದಿ</strong>
+                <span class="load-count">0 Loads</span>
+                <span class="pause-text">READY</span>
+            </button>
+
+        </div>
+    </section>
+
+    <!-- CURRENT TOTAL -->
+    <section id="currentCountCard" class="total-card hidden">
+
+        <div class="total-label">CURRENT TOTAL</div>
+
+        <div id="currentTotal" class="current-total">0</div>
+
+        <div id="currentSelection" class="current-selection">—</div>
+
+        <div id="pauseMessage" class="pause-message hidden">
+            Next count available in
+            <strong id="pauseTimer">00:20</strong>
+        </div>
+
+    </section>
+
+    <!-- SUMMARY -->
+    <section class="card">
+
+        <div class="section-title">📊 SESSION SUMMARY</div>
+
+        <div class="summary-grid">
+
+            <div class="summary-item">
+                <span>SOIL LOADS</span>
+                <strong id="soilTotal">0</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>MATERIAL</span>
+                <strong id="materialTotal">0</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>TOTAL</span>
+                <strong id="grandTotal">0</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- SESSION TIME -->
+    <section class="card">
+
+        <div class="section-title">⏱️ SESSION TIME</div>
+
+        <div class="session-grid">
+
+            <div class="session-item">
+                <span>START TIME</span>
+                <strong id="sessionStart">—</strong>
+            </div>
+
+            <div class="session-item">
+                <span>END TIME</span>
+                <strong id="sessionEnd">—</strong>
+            </div>
+
+            <div class="session-item">
+                <span>DURATION</span>
+                <strong id="sessionDuration">—</strong>
+            </div>
+
+            <div class="session-item">
+                <span>LAST GAP</span>
+                <strong id="lastGap">—</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- DETAILED REPORT -->
+    <section class="card">
+
+        <div class="section-title">
+            📋 DETAILED LOAD REPORT
+        </div>
+
+        <div id="liveReportContent">
+            No loads recorded yet.
+        </div>
+
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="card">
+
+        <button id="settingsButton"
+                class="action-button settings-button"
+                type="button">
+            ⚙️ OWNER PAUSE SETTINGS
+        </button>
+
+        <div id="settingsBox" class="settings-box hidden">
+
+            <div class="setting-row">
+                <label>🌱 Soil pause</label>
+                <input id="soilPauseInput"
+                       type="number"
+                       min="1"
+                       max="3600">
+                <span>sec</span>
+            </div>
+
+            <div class="setting-row">
+                <label>🏭 Material pause</label>
+                <input id="materialPauseInput"
+                       type="number"
+                       min="1"
+                       max="3600">
+                <span>sec</span>
+            </div>
+
+            <button id="saveSettings"
+                    class="save-settings"
+                    type="button">
+                SAVE SETTINGS
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- ACTIONS -->
+    <section class="actions">
+
+        <button id="shareButton"
+                class="action-button share-button"
+                type="button">
+            📤 SAVE and  SHARE CURRENT REPORT
+        </button>
+
+        <button id="newSessionButton"
+                class="action-button new-button"
+                type="button">
+            🔄 NEW SESSION
+        </button>
+
+        <button id="backButton"
+                class="action-button new-button"
+                type="button">
+            ← BACK TO MAIN
+        </button>
+
+    </section>
+
+    <!-- PREVIOUS -->
+    <section class="card">
+
+        <div class="section-title">📅 PREVIOUS 7 DAYS REPORTS</div>
+
+        <div class="date-picker-card">
+
+            <label for="reportDate">Select Date</label>
+
+            <input type="date" id="reportDate">
+
+        </div>
+
+        <div id="previousReport" class="previous-report">
+            Select a date to view the complete report.
+        </div>
+
+        <button id="sharePreviousButton"
+                class="action-button share-button"
+                type="button"
+                style="width:100%; margin-top:12px;">
+            📤 SHARE PREVIOUS REPORT
+        </button>
+
+    </section>
+
+    <footer>
+        @2026 • HANAMAGOND OWNER
+    </footer>
+
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="owner.js"></script>
+
+</body>
+</html>

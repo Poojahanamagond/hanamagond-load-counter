@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1769aa">
+    <meta name="description" content="Offline Hanamagond JCB Load Counter">
+
+    <title>Hanamagond Load Counter</title>
+
+    <link rel="stylesheet" href="jcb.css">
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+
+
+</head>
+
+<body>
+
+<main class="jcb-app">
+
+    <!-- HEADER -->
+    <header class="jcb-header">
+
+        <div class="jcb-title">
+            🚜 JCB LOAD COUNTER
+        </div>
+
+        <div id="currentDate" class="jcb-date">
+            —
+        </div>
+
+    </header>
+
+
+    <!-- DRIVER -->
+    <section class="jcb-card">
+
+        <div class="jcb-section-title">
+            👷 JCB DRIVER
+        </div>
+
+        <div class="driver-row">
+
+            <label for="driverName">
+                👨‍🌾 Driver Name
+            </label>
+
+            <input
+                type="text"
+                id="driverName"
+                placeholder="Optional"
+                autocomplete="off"
+            >
+
+        </div>
+
+    </section>
+
+
+    <!-- LOAD TYPE -->
+    <section class="jcb-card">
+
+        <div class="jcb-section-title">
+            SELECT LOAD TYPE
+        </div>
+
+        <div class="type-grid">
+
+            <button
+                id="soilButton"
+                class="type-option"
+                type="button">
+
+                <div class="type-icon">
+                    🚜🪨
+                </div>
+
+                <strong>
+                    ಮಣ್ಣಿನ ಡಬ್ಬಿ
+                </strong>
+
+                <span>
+                    SOIL
+                </span>
+
+            </button>
+
+
+            <button
+                id="materialButton"
+                class="type-option"
+                type="button">
+
+                <div class="type-icon">
+                    🚜🏗️
+                </div>
+
+                <strong>
+                    ಮೆಟೀರಿಯಲ್
+                </strong>
+
+                <span>
+                    MATERIAL
+                </span>
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- SOIL -->
+    <section
+        id="soilSection"
+        class="jcb-card hidden">
+
+        <div class="jcb-section-title">
+            🪨 ಮಣ್ಣಿನ ಡಬ್ಬಿ — SELECT TRACTOR
+        </div>
+
+        <div class="option-grid">
+
+            <button
+                class="count-option"
+                data-type="soil"
+                data-name="ಮಹೀಂದ್ರಾ ಟರ್ಬೊ"
+                type="button">
+
+                <div class="option-icon">
+                    🚜
+                </div>
+
+                <strong>
+                    ಮಹೀಂದ್ರಾ ಟರ್ಬೊ
+                </strong>
+
+                <span class="load-count">
+                    0 Loads
+                </span>
+
+                <span class="pause-text">
+                    READY
+                </span>
+
+            </button>
+
+
+            <button
+                class="count-option"
+                data-type="soil"
+                data-name="ಸಣ್ಣ ಎಲ್ ಎನ್ ಟಿ"
+                type="button">
+
+                <div class="option-icon">
+                    🚜
+                </div>
+
+                <strong>
+                    ಸಣ್ಣ ಎಲ್ ಎನ್ ಟಿ
+                </strong>
+
+                <span class="load-count">
+                    0 Loads
+                </span>
+
+                <span class="pause-text">
+                    READY
+                </span>
+
+            </button>
+
+
+            <button
+                class="count-option"
+                data-type="soil"
+                data-name="ದೊಡ್ಡ ಎಲ್ ಏನ ಟಿ"
+                type="button">
+
+                <div class="option-icon">
+                    🚜
+                </div>
+
+                <strong>
+                    ದೊಡ್ಡ ಎಲ್ ಏನ ಟಿ
+                </strong>
+
+                <span class="load-count">
+                    0 Loads
+                </span>
+
+                <span class="pause-text">
+                    READY
+                </span>
+
+            </button>
+
+
+            <button
+                class="count-option"
+                data-type="soil"
+                data-name="ಬೇರೆದ"
+                type="button">
+
+                <div class="option-icon">
+                    🚜
+                </div>
+
+                <strong>
+                    ಬೇರೆದ
+                </strong>
+
+                <span class="load-count">
+                    0 Loads
+                </span>
+
+                <span class="pause-text">
+                    READY
+                </span>
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- MATERIAL -->
+    <section
+        id="materialSection"
+        class="jcb-card hidden">
+
+        <div class="jcb-section-title">
+            🏗️ ಮೆಟೀರಿಯಲ್ — SELECT MATERIAL
+        </div>
+
+        <div class="option-grid">
+
+            <button
+                class="count-option"
+                data-type="material"
+                data-name="ಬಳ್ಳಾರಿ ಬೂದಿ"
+                type="button">
+
+                <div class="option-icon">
+                    🪨
+                </div>
+
+                <strong>
+                    ಬಳ್ಳಾರಿ ಬೂದಿ
+                </strong>
+
+                <span class="load-count">
+                    0 Loads
+                </span>
+
+                <span class="pause-text">
+                    READY
+                </span>
+
+            </button>
+
+
+            <button
+                class="count-option"
+                data-type="material"
+                data-name="ಫ್ಯಾಕ್ಟರಿ ಬೂದಿ"
+                type="button">
+
+                <div class="option-icon">
+                    🏭
+                </div>
+
+                <strong>
+                    ಫ್ಯಾಕ್ಟರಿ ಬೂದಿ
+                </strong>
+
+                <span class="load-count">
+                    0 Loads
+                </span>
+
+                <span class="pause-text">
+                    READY
+                </span>
+
+            </button>
+
+
+            <button
+                class="count-option"
+                data-type="material"
+                data-name="ಬಗ್ಯಾಸ್ (ಹಿಪ್ಪಿ)"
+                type="button">
+
+                <div class="option-icon">
+                    🏗️
+                </div>
+
+                <strong>
+                    ಬಗ್ಯಾಸ್ (ಹಿಪ್ಪಿ)
+                </strong>
+
+                <span class="load-count">
+                    0 Loads
+                </span>
+
+                <span class="pause-text">
+                    READY
+                </span>
+
+            </button>
+
+
+            <button
+                class="count-option"
+                data-type="material"
+                data-name="NTPC ಬೂದಿ"
+                type="button">
+
+                <div class="option-icon">
+                    🏭
+                </div>
+
+                <strong>
+                    NTPC ಬೂದಿ
+                </strong>
+
+                <span class="load-count">
+                    0 Loads
+                </span>
+
+                <span class="pause-text">
+                    READY
+                </span>
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- CURRENT TOTAL -->
+    <section
+        id="currentCountCard"
+        class="total-card hidden">
+
+        <div class="total-label">
+            CURRENT TOTAL
+        </div>
+
+        <div
+            id="currentTotal"
+            class="current-total">
+            0
+        </div>
+
+        <div
+            id="currentSelection"
+            class="current-selection">
+            —
+        </div>
+
+        <div
+            id="pauseMessage"
+            class="pause-message hidden">
+
+            Next count available in
+
+            <strong id="pauseTimer">
+                00:20
+            </strong>
+
+        </div>
+
+    </section>
+
+
+    <!-- SESSION SUMMARY -->
+    <section class="jcb-card">
+
+        <div class="jcb-section-title">
+            📊 SESSION SUMMARY
+        </div>
+
+        <div class="summary-grid">
+
+            <div class="summary-item">
+                <span>SOIL LOADS</span>
+                <strong id="soilTotal">0</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>MATERIAL LOADS</span>
+                <strong id="materialTotal">0</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>TOTAL LOADS</span>
+                <strong id="grandTotal">0</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DETAILED LIVE REPORT -->
+    <section
+        id="liveReport"
+        class="jcb-card detailed-report">
+
+        <div class="jcb-section-title">
+            📋 DETAILED LOAD REPORT
+        </div>
+
+        <div id="liveReportContent">
+            No loads recorded yet.
+        </div>
+
+    </section>
+
+
+    <!-- ACTION BUTTONS -->
+    <section class="actions">
+
+        <button
+            id="shareButton"
+            class="action-button share-button"
+            type="button">
+
+            📤 SAVE and SHARE REPORT
+
+        </button>
+
+
+        <button
+            id="newSessionButton"
+            class="action-button new-button"
+            type="button">
+
+            🔄 NEW SESSION
+
+        </button>
+
+    </section>
+
+
+    <!-- PREVIOUS REPORTS -->
+    <section class="jcb-card previous-section">
+
+        <div class="jcb-section-title">
+            📅 PREVIOUS REPORTS
+        </div>
+
+        <div class="date-picker-card">
+
+            <label for="reportDate">
+                Select Date
+            </label>
+
+            <input
+                type="date"
+                id="reportDate"
+            >
+
+        </div>
+
+
+        <div
+            id="previousReport"
+            class="previous-report">
+
+            Select a date to view the complete report.
+
+        </div>
+
+
+        <button
+            id="sharePreviousButton"
+            class="action-button share-button"
+            type="button">
+
+            📤 SHARE PREVIOUS REPORT
+
+        </button>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+        @2026 • HANAMAGOND
+    </footer>
+
+</main>
+
+
+<script src="jcb.js"></script>
+
+
+<script>
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener(
+        "load",
+        function () {
+
+            navigator.serviceWorker.register("./sw.js");
+
+        }
+    );
+
+}
+
+</script>
+
+</body>
+</html>

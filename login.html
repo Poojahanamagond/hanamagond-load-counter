@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color"
+        content="#1769aa">
+
+    <title>Owner Login</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+        }
+
+        .login-box {
+            background: white;
+            border-radius: 22px;
+            padding: 30px 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+            text-align: center;
+        }
+
+        .icon {
+            width: 90px;
+            height: 90px;
+            border-radius: 20px;
+            background: #fff5e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            margin: 0 auto 20px;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: #222;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #dce2e8;
+            border-radius: 12px;
+            font-size: 17px;
+            outline: none;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        input:focus {
+            border-color: #1769aa;
+        }
+
+        .error {
+            color: #d93025;
+            font-size: 14px;
+            font-weight: bold;
+            min-height: 20px;
+            margin-bottom: 10px;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: #1769aa;
+            color: white;
+            font-size: 17px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .back-button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 12px;
+            background: #e9edf2;
+            color: #333;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .password-box {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.password-box input {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+#showBtn {
+    padding: 0 15px;
+    border: none;
+    border-radius: 12px;
+    background: #e9edf2;
+    color: #333;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <div class="login-box">
+
+        <div class="icon">
+            👨‍🌾
+        </div>
+
+        <h1>
+           Boss Login
+        </h1>
+
+        <div class="subtitle">
+            Hello Darshan Enter your password
+        </div>
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter Password"
+            autocomplete="off">
+             <button type="button" onclick="togglePassword()" id="showBtn">Show</button>
+
+        <div
+            class="error"
+            id="error">
+        </div>
+
+        <button
+            class="login-button"
+            onclick="login()">
+
+            LOGIN
+
+        </button>
+
+        <button
+            class="back-button"
+            onclick="goBack()">
+
+            ← BACK
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function login() {
+
+    const password =
+        document.getElementById("password").value;
+
+    const error =
+        document.getElementById("error");
+
+    if (password === "10088001") {
+
+        window.location.href =
+            "owner.html";
+
+    } else {
+
+        error.textContent =
+            "Enter correct Password, Why are you Sleeping :)";
+
+        document.getElementById(
+            "password"
+        ).value = "";
+
+        document.getElementById(
+            "password"
+        ).focus();
+
+    }
+
+}
+
+
+document.getElementById(
+    "password"
+).addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+            login();
+        }
+
+    }
+);
+
+
+function goBack() {
+
+    window.location.href =
+        "index.html";
+
+}
+function togglePassword() {
+    const password = document.getElementById("password");
+    const showBtn = document.getElementById("showBtn");
+
+    if (password.type === "password") {
+        password.type = "text";
+        showBtn.textContent = "Hide";
+    } else {
+        password.type = "password";
+        showBtn.textContent = "Show";
+    }
+}
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#1769aa">
+
+    <meta name="description"
+        content="Offline Tractor Load Counter">
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Hanamagond Tractor Load Counter</title>
+</head>
+
+<body>
+
+<main class="app">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="title">
+            🚜 Tractor Load Counter
+        </div>
+
+        <div id="currentDate" class="date">
+            —
+        </div>
+
+    </header>
+
+
+    <!-- TRACTOR SELECTION -->
+
+    <section class="card">
+
+        <div class="section-title">
+            🚜 SELECT TRACTOR
+        </div>
+
+        <div class="tractor-grid">
+
+            <button
+                class="tractor-option"
+                data-tractor="Mahindra Turbo">
+
+                <div class="tractor-icon">
+                    🚜
+                </div>
+
+                <strong>
+                   ಮಹೀಂದ್ರಾ ಟರ್ಬೊ
+                </strong>
+
+            </button>
+
+
+
+
+            <button
+                class="tractor-option"
+                data-tractor="LNT - Green Body">
+
+                <div class="tractor-icon">
+                    🚜
+                </div>
+
+                <strong>
+                   ಸಣ್ಣ ಎಲ್ ಎನ್ ಟಿ(LNT)
+                </strong>
+
+               
+
+            </button>
+            
+            <button
+                class="tractor-option"
+                data-tractor="LNT - Black Body">
+
+                <div class="tractor-icon">
+                    🚜
+                </div>
+
+                <strong>
+                    ದೊಡ್ಡ ಎಲ್ ಏನ ಟಿ(LNT)
+                </strong>
+
+               
+
+            </button>
+
+
+            <button
+                class="tractor-option"
+                data-tractor="Other Tractor 1">
+
+                <div class="tractor-icon">
+                    🚜
+                </div>
+
+                <strong>
+ಬೆರೆದ
+                </strong>
+
+                
+            </button>
+
+
+            
+
+        </div>
+
+        <div
+            id="selectedTractor"
+            class="selected-text">
+
+            No tractor selected
+
+        </div>
+
+    </section>
+
+
+    <!-- DRIVER NAME -->
+
+    <section class="driver-card">
+
+        <div class="driver-row">
+
+            <label for="driverName">
+                👨‍🌾 Driver Name
+            </label>
+
+            <input
+                type="text"
+                id="driverName"
+                placeholder="Optional"
+                autocomplete="off">
+
+        </div>
+
+    </section>
+
+
+    <!-- BIG COUNT BUTTON -->
+
+    <button
+        id="countButton"
+        class="count-button">
+
+        <div class="count-left">
+
+            <span class="count-icon">
+                +
+            </span>
+
+            <span class="count-text">
+                COUNT LOAD
+            </span>
+
+        </div>
+
+        <div class="count-right">
+
+            <span class="count-total-label">
+                TOTAL
+            </span>
+
+            <span id="totalLoads">
+                0
+            </span>
+
+        </div>
+
+    </button>
+
+
+    <!-- LOCK MESSAGE -->
+
+    <div
+        id="lockMessage"
+        class="lock-message hidden">
+
+        Next count available in
+        <strong id="lockTimer">
+            04:00
+        </strong>
+
+    </div>
+
+
+    <!-- SESSION SUMMARY -->
+
+    <section class="summary-card">
+
+        <div class="summary-item">
+
+            <span class="summary-label">
+                START
+            </span>
+
+            <strong id="startTime">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="summary-item">
+
+            <span class="summary-label">
+                END
+            </span>
+
+            <strong id="endTime">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="summary-item">
+
+            <span class="summary-label">
+                DURATION
+            </span>
+
+            <strong id="duration">
+                —
+            </strong>
+
+        </div>
+
+    </section>
+
+
+    <!-- LOAD HISTORY -->
+
+    <section class="history-section">
+
+        <div class="section-title">
+            LOAD HISTORY
+        </div>
+
+
+        <div
+            id="emptyMessage"
+            class="empty-message">
+
+            No loads recorded yet.
+
+            <br><br>
+
+            Press COUNT LOAD to begin.
+
+        </div>
+
+
+        <div
+            id="historyContainer"
+            class="history-container hidden">
+
+            <div class="history-header">
+
+                <span>
+                    LOAD
+                </span>
+
+                <span>
+                    TIME
+                </span>
+
+                <span>
+                    GAP
+                </span>
+
+            </div>
+
+
+            <div id="historyList">
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ACTION BUTTONS -->
+
+    <section class="actions">
+
+        <button
+            id="shareButton"
+            class="action-button share-button">
+
+            📤SAVE and SHARE REPORT
+
+        </button>
+
+
+        <button
+            id="newSessionButton"
+            class="action-button new-button">
+
+            🔄 NEW SESSION
+
+        </button>
+
+    </section>
+
+
+    <!-- PREVIOUS REPORTS -->
+
+    <section class="previous-section">
+
+        <div class="section-title">
+            📅 PREVIOUS REPORTS
+        </div>
+
+
+        <div class="date-picker-card">
+
+            <label for="reportDate">
+                Select Date
+            </label>
+
+            <input
+                type="date"
+                id="reportDate">
+
+        </div>
+
+
+        <div
+            id="previousReport"
+            class="previous-report">
+
+            Select a date to view the complete report.
+
+        </div>
+        <button
+    id="sharePreviousButton"
+    class="action-button share-button"
+    style="margin-top:10px;">
+    📤 SHARE PREVIOUS REPORT
+</button>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+        @2026 • HANAMAGOND
+    </footer>
+
+</main>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script src="app.js"></script>
+
+<script>
+
+
+
+if ("serviceWorker" in navigator) {
+    window.addEventListener(
+        "load",
+        function () {
+            navigator.serviceWorker.register(
+                "./sw.js"
+            );
+        }
+    );
+}
+</script>
+
+</body>
+</html>
